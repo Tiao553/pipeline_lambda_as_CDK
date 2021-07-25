@@ -1,58 +1,61 @@
+# Pipeline lambda com AWS CDK
 
-# Welcome to your CDK Python project!
+Todo este projeto foi instanciado no bootcamp de engenharia de dados da HOWBootcamps, ministrado pelo senior data engineer André Sionek. Com base neste projeto realizado, montei a minha versão da sua pipeline.
+--
 
-This is a blank project for Python development with CDK.
+ A imagem a abaixo mostra a pipeline desenvolvida em todo o bootcamp.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+<center><img src='img/arquitetura_sionek.png'></center>
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+> Podemos ver que foram utilizadas as ferramentas:
+> * (1) instanciamento de uma banco de dados, 
+> * (2) captura de dados com DMS, 
+> * (3) coleta de dados por meio de uma stream de dados com o Kinisis, 
+> * (4) ingestão de dados por meio de uma API orquestrada pelo Airflow, 
+> * (5) Criação das três camadas do datalake (bronze, silver, gold),
+> * (6) processamento de dados via databricks(microserviço de processamento baseado no framework spark), 
+> * (7) catalogo de metadados com glue catalog, 
+> * (8) sistema de queries com athena, 
+> * (9) implementação de um Data WareHouse com a utilização do framework DBT para gestão de um MDW(Modern Data WareHhouse) e 
+> * (10) Orquestração da pipeline com Airflow.
 
-To manually create a virtualenv on MacOS and Linux:
+> Todo CI/CD no bootcamp foi instanciado e monitorado por meio do GitHub Actions utilizando e criando worflows.
 
-```
-$ python -m venv .venv
-```
+Com base no que foi proposto no bootcamp, resolvi implementar algumas outras funcionalidade como:
 
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
+* Criar uma coleta de dados de um FTP utilizando a criação de uma **lambda function.**
+* Vamos fazer uma aplicação totalmente ligada a AWS, dessa maneira retirando o uso do databricks e instanciando clusters EMR.
+* Criar o controle de toda pipeline no airflow e não so a insgestão e DBT.
 
-```
-$ source .venv/bin/activate
-```
 
-If you are a Windows platform, you would activate the virtualenv like this:
+---
+# **HANDS-ON**
 
-```
-% .venv\Scripts\activate.bat
-```
+Dessa maneira toda implementação e na aplicação segue o seguinte cookbook:
 
-Once the virtualenv is activated, you can install the required dependencies.
+## **1) Criação dos ambientes de trabalho**
 
-```
-$ pip install -r requirements.txt
-```
+Caso você esteja trabalhando com mais de uma pessoa em um projeto, ou mesmo sozinho é de extrema importancia **criar hábitos e boas práticas de produção**. Para isso a primeira delas é a utilização de um **ambiente de versionamento de código**, no caso deste repositorio utilizamos o git como versionador local e o github como remoto.
 
-At this point you can now synthesize the CloudFormation template for this code.
+Outra prática é a criação de workflows que vai garantir a qualidade e veracidade de sua aplicação. Esse workflow recebe o nome de CI ou *continouos integration*, e neste estão contidos diversos testes unitários para validação de sua aplicação. Validado a aplicação vamos para o segundo round de teste. Essa parte recebe o nome de CD ou *continouos deployment*, e nesta parte vamos fazer  alguns testes de integração que vão validar como essa nova aplicação está rodando em contato com um sistema ja aplicado.
 
-```
-$ cdk synth
-```
+Dessa maneira temos a nossa "polícia" criada para validar a nossa aplicação. Agora podemos criar os nossos ambientes, estes serão:
+* **Production** : Que seria como a nossa aplicação em execução, a utima e a mais estável.
+* **Staging** : Que seria a próxima versão a ser executada mas ainda em testes.
+* **Deployment** : Ambiente de criação de novas features sem afetar as ja validadas. Neste caso é mais de trabalho pessoal.
 
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
+## **2) Criação da infraestrutura**
 
-## Useful commands
+ Uma vez ouvi um cometário muito bacana que dizia "Antes de você morar em sua casa, vocẽ precisa construi-lá". Claro que você também pode aluga-la, mas o que podemos aprender com esta frase?
 
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
+Para você rodar toda uma aplicação, neste caso de engenharia de dados, você precisa fudamentar toda ela. Dessa forma crie todas as suas instancias e conexões antes de começar a rodar os seus dados e pensar nos tratamentos a serem realizados.
 
-Enjoy!
+Dessa maneira, instancie seus bancos de dados e suas conexões e gerencie alertas para governancia dos seus dados.
+
+## **3) Criação dos seus Jobs**
+
+Agora você passa a mudar seus móveis para sua casa e vai por aplicação em funcionamento integrando na sua infraestrutura parte a parte.
+
+Na pasta Project_aws_cdk terá os jobs e a infraestrutura instanciadas e explicadas pontualmente.
+
+

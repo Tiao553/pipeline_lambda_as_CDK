@@ -3,8 +3,10 @@ from aws_cdk import (
     aws_kinesisfirehose as firehose,
     aws_iam as iam,
 )
-from data_platform.active_environment import active_environment
-from data_platform.data_lake.base import BaseDataLakeBucket
+
+from project_aws_cdk.data_lake.base import BaseDataLakeBucket
+from project_aws_cdk.active_environment import active_environment
+
 
 
 class RawKinesisRole(iam.Role):
