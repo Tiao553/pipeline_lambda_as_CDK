@@ -1,9 +1,13 @@
 # Pipeline lambda com AWS CDK
 
-Todo este projeto foi instanciado no bootcamp de engenharia de dados da HOWBootcamps, ministrado pelo senior data engineer André Sionek. Com base neste projeto realizado, montei a minha versão da sua pipeline.
+Todo este projeto foi instanciado no bootcamp de engenharia de dados da HOWBootcamps, ministrado pelo senior data engineer André Sionek.
 --
 
+---
+No bootcamp de engenaria de dados foi proposto a construção de uma pipeline que nos proporcionaria o contato com a ingestão, tratamento e disponibilidade de dados. Como diferencial o bootcamp focou em entregar a pipeline com automações e testes automatizados para monitoramento de cada etapa.
+
  A imagem a abaixo mostra a pipeline desenvolvida em todo o bootcamp.
+ --
 
 <center><img src='img/arquitetura_sionek.png'></center>
 
@@ -31,9 +35,13 @@ Com base no que foi proposto no bootcamp, resolvi implementar algumas outras fun
 ---
 # **HANDS-ON**
 
-Dessa maneira toda implementação e na aplicação segue o seguinte cookbook:
+Para montar esta pipeline vamos dividir todo o processo em 3 etapa de criação.
+--
 
-## **1) Criação dos ambientes de trabalho**
+
+<h1 align="center">
+     1) Criação dos ambientes de trabalho
+</h1>
 
 Caso você esteja trabalhando com mais de uma pessoa em um projeto, ou mesmo sozinho é de extrema importancia **criar hábitos e boas práticas de produção**. Para isso a primeira delas é a utilização de um **ambiente de versionamento de código**, no caso deste repositorio utilizamos o git como versionador local e o github como remoto.
 
@@ -44,18 +52,15 @@ Dessa maneira temos a nossa "polícia" criada para validar a nossa aplicação. 
 * **Staging** : Que seria a próxima versão a ser executada mas ainda em testes.
 * **Deployment** : Ambiente de criação de novas features sem afetar as ja validadas. Neste caso é mais de trabalho pessoal.
 
-## **2) Criação da infraestrutura**
+<h1 align="center">
+  2) Criação da infraestrutura
+</h1>
 
- Uma vez ouvi um cometário muito bacana que dizia "Antes de você morar em sua casa, vocẽ precisa construi-lá". Claro que você também pode aluga-la, mas o que podemos aprender com esta frase?
 
-Para você rodar toda uma aplicação, neste caso de engenharia de dados, você precisa fudamentar toda ela. Dessa forma crie todas as suas instancias e conexões antes de começar a rodar os seus dados e pensar nos tratamentos a serem realizados.
 
-Dessa maneira, instancie seus bancos de dados e suas conexões e gerencie alertas para governancia dos seus dados.
+<h1 align="center">
+    3) Criação dos seus Jobs
+</h1>
 
-## **3) Criação dos seus Jobs**
-
-Agora você passa a mudar seus móveis para sua casa e vai por aplicação em funcionamento integrando na sua infraestrutura parte a parte.
-
-Na pasta Project_aws_cdk terá os jobs e a infraestrutura instanciadas e explicadas pontualmente.
 
 
